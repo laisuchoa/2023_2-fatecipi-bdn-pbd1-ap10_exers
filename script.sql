@@ -12,6 +12,8 @@ $$ LANGUAGE plpgsql;
 -- Entrada: Neste problema extremamente simples de repetição não há entrada.
 -- Saída: Imprima todos os números pares entre 1 e 100, inclusive se for o caso, um em cada linha.
 
+-- LOOP 
+
 DO
 $$
 DECLARE
@@ -27,6 +29,53 @@ BEGIN
 	END LOOP;
 END;$$
 
+-- WHILE
+
+DO
+$$
+DECLARE
+	contador INT := 0;
+BEGIN
+	WHILE contador <= 100 LOOP
+		IF contador % 2 = 0 THEN
+		RAISE NOTICE '%', contador;
+		END IF;
+		contador := contador + 1;
+	END LOOP;
+END;
+$$
+
+-- FOR
+
+DO
+$$
+BEGIN
+	FOR i in 1..100 LOOP
+		IF i % 2 = 0 THEN
+		RAISE NOTICE '%', i;
+		END IF;
+	END LOOP;
+END;
+$$
+
+-- FOREACH
+
+DO
+$$
+DECLARE
+	lista INT[] := ARRAY[]::integer[];
+	valor INT;
+BEGIN
+	FOR i in 1..100 LOOP
+		IF i % 2 = 0 THEN
+		lista := array_append(lista, i);
+		END IF;
+	END LOOP;
+	FOREACH valor IN ARRAY lista LOOP
+		RAISE NOTICE '%', valor;
+	END LOOP;
+END;
+$$
 
 -- 1.1/2 Faça um programa que leia 6 valores. Estes valores serão somente negativos ou positivos (desconsidere os valores nulos). A seguir, mostre a quantidade de valores positivos digitados.
 -- Entrada: Seis valores, negativos e/ou positivos.
