@@ -81,6 +81,90 @@ $$
 -- Entrada: Seis valores, negativos e/ou positivos.
 -- Saída: Imprima uma mensagem dizendo quantos valores positivos foram lidos.
 
+-- LOOP
+
+DO
+$$
+DECLARE
+	contador INT := 0;
+	valor INT;
+	varLoop INT = 0;
+BEGIN
+	LOOP
+		valor := valor_aleatorio_entre(-50, 50);
+		RAISE NOTICE 'valor atual: %', valor;
+		IF valor > 0 THEN
+			contador := contador + 1;
+		END IF;
+		varLoop := varLoop + 1;
+		EXIT WHEN varLoop >= 6;
+	END LOOP;
+	RAISE NOTICE 'total de números positivos: %', contador;
+END;
+$$
+
+-- WHILE
+
+DO
+$$
+DECLARE
+	contador INT := 0;
+	valor INT;
+	varLoop INT = 0;
+BEGIN
+	WHILE varLoop < 6 LOOP
+		valor := valor_aleatorio_entre(-50, 50);
+		RAISE NOTICE 'valor atual: %', valor;
+		IF valor > 0 THEN
+			contador := contador + 1;
+		END IF;
+		varLoop := varLoop + 1;
+	END LOOP;
+	RAISE NOTICE 'total de números positivos: %', contador;
+END;
+$$
+
+-- FOR
+
+DO
+$$
+DECLARE
+	contador INT := 0;
+	valor INT;
+	varLoop INT = 0;
+BEGIN
+	FOR i IN 1..6 LOOP
+		valor := valor_aleatorio_entre(-50, 50);
+		RAISE NOTICE 'valor atual: %', valor;
+		IF valor > 0 THEN
+			contador := contador + 1;
+		END IF;
+		varLoop := varLoop + 1;
+		EXIT WHEN varLoop >= 6;
+	END LOOP;
+	RAISE NOTICE 'total de números positivos: %', contador;
+END;
+$$
+
+-- FOREACH
+							
+DO
+$$
+DECLARE
+	contador INT := 0;
+	valores INT[] := ARRAY[valor_aleatorio_entre(-50, 50), valor_aleatorio_entre(-50, 50), valor_aleatorio_entre(-50, 50), valor_aleatorio_entre(-50, 50), valor_aleatorio_entre(-50, 50), valor_aleatorio_entre(-50, 50)];
+	valor INT;
+BEGIN
+	FOREACH valor IN ARRAY valores LOOP
+		RAISE NOTICE 'valor atual: %', valor;
+		IF valor > 0 THEN
+			contador := contador + 1;
+		END IF;
+	END LOOP;
+	RAISE NOTICE 'total de números positivos: %', contador;
+END;
+$$
+
 -- 1.1/3 Leia 2 valores inteiros X e Y. A seguir, calcule e mostre a soma dos números impares entre eles.
 -- Entrada: O arquivo de entrada contém dois valores inteiros.
 -- Saída: O programa deve imprimir um valor inteiro. Este valor é a soma dos valores ímpares que estão entre os valores fornecidos na entrada que deverá caber em um inteiro.
