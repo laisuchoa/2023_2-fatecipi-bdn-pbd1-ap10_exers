@@ -315,6 +315,138 @@ $$;
 -- Entrada? O arquivo de entrada contém um número não determinado de valores M e N. A última linha de entrada vai conter um número nulo ou negativo.
 -- Saída: Para cada dupla de valores, imprima a sequência do menor até o maior e a soma deles, conforme exemplo abaixo.
 
+-- LOOP
+
+DO
+$$
+DECLARE
+	var INT := 0;
+	soma INT := 0;
+	m INT := valor_aleatorio_entre(1, 100);
+	n INT := valor_aleatorio_entre(1, 100);
+	a INT := 0;
+	b INT := 0;
+BEGIN
+	IF m < n THEN
+		a := m;
+		b := n;
+	ELSE
+		a := n;
+		b := m;
+	END IF;
+	
+	var := a;
+	
+	RAISE NOTICE 'sequência: % e %', a, b;
+		
+	LOOP
+		var := var + 1;
+		soma := soma + var;
+		EXIT WHEN var = b-1;
+	END LOOP;
+	RAISE NOTICE 'soma: %', soma;
+END;
+$$
+
+-- WHILE
+
+DO
+$$
+DECLARE
+	var INT := 0;
+	soma INT := 0;
+	m INT := valor_aleatorio_entre(1, 100);
+	n INT := valor_aleatorio_entre(1, 100);
+	a INT := 0;
+	b INT := 0;
+BEGIN
+	IF m < n THEN
+		a := m;
+		b := n;
+	ELSE
+		a := n;
+		b := m;
+	END IF;
+	
+	var := a;
+	
+	RAISE NOTICE 'sequência: % e %', a, b;
+		
+	WHILE var < b-1 LOOP
+		var := var + 1;
+		soma := soma + var;
+	END LOOP;
+	RAISE NOTICE 'soma: %', soma;
+END;
+$$
+
+-- FOR
+
+DO
+$$
+DECLARE
+	var INT := 0;
+	soma INT := 0;
+	m INT := valor_aleatorio_entre(1, 100);
+	n INT := valor_aleatorio_entre(1, 100);
+	a INT := 0;
+	b INT := 0;
+BEGIN
+	IF m < n THEN
+		a := m;
+		b := n;
+	ELSE
+		a := n;
+		b := m;
+	END IF;
+	
+	var := a;
+	
+	RAISE NOTICE 'sequência: % e %', a, b;
+		
+	FOR i IN a+1..b-1 LOOP
+		var := var + 1;
+		soma := soma + var;
+	END LOOP;
+	RAISE NOTICE 'soma: %', soma;
+END;
+$$
+
+-- FOREACH
+
+DO
+$$
+DECLARE
+	soma INT := 0;
+	m INT := valor_aleatorio_entre(1, 100);
+	n INT := valor_aleatorio_entre(1, 100);
+	a INT := 0;
+	b INT := 0;
+	numeros INT[] := ARRAY[]::INT[];
+	i INT;
+BEGIN
+	IF m < n THEN
+		a := m;
+		b := n;
+	ELSE
+		a := n;
+		b := m;
+	END IF;
+	
+	RAISE NOTICE 'sequência: % e %', a, b;
+		
+    FOR i IN a+1..b-1 LOOP
+		numeros := array_append(numeros, i);
+    END LOOP;
+
+    FOREACH i IN ARRAY numeros LOOP
+        soma := soma + i;
+        RAISE NOTICE 'soma: %', soma;
+    END LOOP;
+	RAISE NOTICE 'soma final: %', soma;
+END;
+$$
+
 -- 1.2 Faça um programa que calcule o determinante de uma matriz quadrada de ordem 3 utilizando a regra de Sarrus.
 -- Veja a regra aqui: https://en.wikipedia.org/wiki/Rule_of_Sarrus
 
