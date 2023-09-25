@@ -450,3 +450,69 @@ $$
 -- 1.2 Faça um programa que calcule o determinante de uma matriz quadrada de ordem 3 utilizando a regra de Sarrus.
 -- Veja a regra aqui: https://en.wikipedia.org/wiki/Rule_of_Sarrus
 
+DO
+$$
+DECLARE
+	v1 INT[] := ARRAY[valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12)];
+	v2 INT[] := ARRAY[valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12)];
+	v3 INT[] := ARRAY[valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12)];
+    det INT;
+	aei INT;
+	bfg INT;
+	cdh INT;
+	ceg INT;
+	bdi INT;
+	afh INT;
+BEGIN
+	RAISE NOTICE '%, %, %', v1, v2, v3;
+	aei = v1[1] * v2[2] * v3[3];
+	bfg = v1[2] * v2[3] * v3[1];
+	cdh = v1[3] * v2[1] * v3[2];
+	ceg = v1[3] * v2[2] * v3[1];
+	bdi = v1[2] * v2[1] * v3[3];
+	afh = v1[1] * v2[3] * v3[2];
+	det := (aei + bfg + cdh) - (ceg + bdi + afh);
+	RAISE NOTICE '%, %, %, %, %, %', aei, bfg, cdh, ceg, bdi, afh;
+	RAISE NOTICE 'determinante: %', det;
+END;
+$$;
+
+DO $$
+DECLARE
+-- 	v1 INT[] := ARRAY[valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12)];
+-- 	v2 INT[] := ARRAY[valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12)];
+-- 	v3 INT[] := ARRAY[valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12)];
+	valores INT[] := ARRAY[ARRAY[valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12)], ARRAY[valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12)], ARRAY[valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12), valor_aleatorio_entre(1, 12)];
+    det INT;
+	aei INT := 1;
+	bfg INT;
+	cdh INT;
+	ceg INT;
+	bdi INT;
+	afh INT;
+BEGIN
+	valores := SELECT array_append(ARRAY[valores[1]], valores[1][1]);
+	LOOP
+		FOR i IN 1..3 LOOP
+			FOR j IN 1..3 LOOP
+				RAISE NOTICE '%, %, %', v1, v2, v3;
+-- 				aei = v1[1] * v2[2] * v3[3];
+-- 				bfg = v1[2] * v2[3] * v3[1];
+-- 				cdh = v1[3] * v2[1] * v3[2];
+-- 				ceg = v1[3] * v2[2] * v3[1];
+-- 				bdi = v1[2] * v2[1] * v3[3];
+-- 				afh = v1[1] * v2[3] * v3[2];
+				aei = aei * valores[i][i];
+				bfg = bfg * valores[afh];
+				cdh = cdh * valores[3] * v2[1] * v3[2];
+				ceg = ceg * valores[3] * v2[2] * v3[1];
+				bdi = bdi * valores[2] * v2[1] * v3[3];
+				afh = afh * valores[1] * v2[3] * v3[2];
+			END LOOP;
+		END LOOP;
+	END LOOP;
+	det := (aei + bfg + cdh) - (ceg + bdi + afh);
+	RAISE NOTICE '%, %, %, %, %, %', aei, bfg, cdh, ceg, bdi, afh;
+	RAISE NOTICE 'determinante: %', det;
+END;
+$$;
